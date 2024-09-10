@@ -2,7 +2,7 @@
 # using in vivo data, see if gsea will be a good predictor of clinical severity
 # later using ML
 
-setwd("~/Desktop/fa24-urop")
+# setwd("~/Desktop/fa24-urop")
 
 # load in libraries
 library(tidyverse)
@@ -33,18 +33,19 @@ gene_sets <- list(
     "gNAS" = gNAS,
     "gFib" = gFib
 )
-# begin by performing limma for differential expression analysis on the datasets
-X_data <- c("X_Govaere", "X_Hoang", "X_Pantano")
-Y_data <- c("Y_Govaere", "Y_Hoang", "Y_Pantano")
+datasets <- c("Govaere", "Hoang", "Pantano")
+fgsea_NASt <- data.frame(pathway = character(), NES = numeric(), dataset = character(), stringsAsFactors = FALSE) #tstat from fgsea is NAS coefficient
+fgsea_Fibt <- data.frame(pathway = character(), NES = numeric(), dataset = character(), stringsAsFactors = FALSE) #tstat from fgsea is Fibrosis coefficient
 
-for (ii in 1:length(X_data)) {
-    X_name <- X_data[ii]
-    Y_name <- Y_data[ii]
-    X <- get(X_name)
-    Y <- get(Y_name)
+for (ii in 1:length(datasets)) {
+    name <- datasets[ii]
+    X <- get(sprintf("X_%s", name))
+    Y <- get(sprintf("Y_%s", name))
 
     X <- t(X)
     Y <- as.data.frame(Y)
+    
+    # begin by performing limma for differential expression analysis on the datasets
     design <- model.matrix(~ NAS + fibrosis, data = Y)
     fit <- lmFit(X, design) # linear modelling
     fit <- eBayes(fit) # empirical Bayes moderation carried out to obtain precise estimates of gene-wise variability
@@ -58,16 +59,28 @@ for (ii in 1:length(X_data)) {
     # should i just use the t-statistic? why or why not select any other stat?
     tstat_NAS <- diffex_NAS$t
     names(tstat_NAS) <- rownames(diffex_NAS)
-
     fgsea_NAS <- fgsea(
         pathways = gene_sets, 
         stats = tstat_NAS, 
         nperm = 1000) #error: there are ties in the preranked stats (1.96%)
+    tstat_fib <- diffex_fib$t
+    names(tstat_fib) <- rownames(diffex_fib)
+    fgsea_fib <- fgsea(
+      pathways = gene_sets, 
+      stats = tstat_fib, 
+      nperm = 1000) #error: there are ties in the preranked stats (1.96%)
 
-    fgsea_Govaere <- fgsea_NAS[, c("pathway", "NES")]
-    colnames(fgsea_Govaere) <- c("Pathway", "NES", "DiffEx")
-    fgsea_Govaere$DiffEx <- c("NAS", "NAS")
+    # store the NES values in a dataframe
+    temp_NASdf <- fgsea_NAS[, c("pathway", "NES")]
+    temp_NASdf$dataset <- name
+    fgsea_NASt <- rbind(fgsea_NASt, temp_NASdf)
+    
+    temp_Fibdf <- fgsea_fib[, c("pathway", "NES")]
+    temp_Fibdf$dataset <- name
+    fgsea_Fibt <- rbind(fgsea_Fibt, temp_Fibdf)
 }
 
+saveRDS(fgsea_NASt, "datasets/fgsea_NASt.rds")
+saveRDS(fgsea_Fibt, "datasets/fgsea_Fibt.rds")
 
 
