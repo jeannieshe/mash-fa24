@@ -7,3 +7,10 @@ Corresponding script: invivo_prediction.R
   - The **limma** package is an alternative for differential expression analysis which can handle log-transformed or normalized data. However, it was designed for data with continuous, normally distributed values (like log-transformed microarray intensities).
   - Then, the **voom** package converts the count data for RNA-seq into log-transformed values while accounting for the mean-variance relationship inherent in RNA-seq data.
     - Genes with low expression tend to have higher relative variance. Thus, voom applies precision weights to each observation, and then the transformed values and associated weights are fed into limma to allow it to perform linear modeling and differential expression analysis using the empirical Bayes method.
+
+- Is my data log-transformed?
+  - Log transformations are defined only for positive values. Thus, since I have negative values, it was likely not log-transformed.
+
+- limma differential expression using design (~ NAS + fibrosis).
+- extract the t-statistic.
+- fgsea using pathways (geneset_list containing gNAS and gFib), stat (t-statistic), nperm = 1000.
