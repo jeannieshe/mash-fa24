@@ -25,3 +25,14 @@ Corresponding script: invivo_prediction.R
 - Should I only use the t-statistic for fgsea analysis? Why or why not select any other stat?
 - How many permutations should I run for gsea? What does nperm mean for gsea?
 - What is the value under each coefficient when I run topTable(fit)?
+
+## Changes to code 9/11
+- The data are normalized (CPM, log2 transformed, and then centered)
+- Nikos: you can use a code like above! where measurements is basically you X. And this will give you 2 matrices. One with rows the genesets and columns the sample that has Normalized Enrichment Scores (NES) and one with the same dimesnsions and p-values (for the later we dont care at this point so you can avoid using it if you want and for that reason you may use just 100 permutations)
+
+- GSEA actually doesn't account for how the gene affects itself within the geneset. It doesn't account for the correlation of each gene with NAS and fibrosis, but it matters in combination which of them are upregulated and which are down. The way the markers are annotated, it matters if they are positively or negatively correlated with NAS and fibrosis
+
+- Instead, let's run viper (an activity inference technique similar to GSEA). It requires a package called [decoupleR](https://saezlab.github.io/decoupleR/)
+
+- If I want to use it in python, I will need to create a conda environment and install it there.
+  - conda create -n myenv; conda activate myenv; conda install decoupler-py -c conda-forge

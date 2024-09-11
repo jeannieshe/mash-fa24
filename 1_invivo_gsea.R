@@ -82,5 +82,3 @@ for (ii in 1:length(datasets)) {
 
 saveRDS(fgsea_NASt, "datasets/fgsea_NASt.rds")
 saveRDS(fgsea_Fibt, "datasets/fgsea_Fibt.rds")
-
-
