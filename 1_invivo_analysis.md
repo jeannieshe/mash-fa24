@@ -36,3 +36,42 @@ Corresponding script: invivo_prediction.R
 
 - If I want to use it in python, I will need to create a conda environment and install it there.
   - conda create -n myenv; conda activate myenv; conda install decoupler-py -c conda-forge
+  
+## Updates 10/1
+- Instead of using GSEA, I will now be using VIPER. VIPER uses the regulon of the datasets and the given gene sets in order to predict a score for each patient.
+- VIPER gives a direction of regulation in addition to the magnitude of regulation, and the score is in the range (-2, 2).
+
+- Move datasets to Python to train on PLSR
+- tuning:
+- train on one dataset, Govaere, 10 fold cross validation (90% train, 10% test)
+PLSR: try diff. num_lvs = [2, 4, 6, 8, 10] to find the latent variable hyperparameter that provides the highest performance
+  - save the models and take the best one and make prediction on test set
+  - save the actual data splits
+  - or you can train with all of Govaere and test on the other two
+  - as csv, after selecting the model:
+  - train, validation, Hoang, Pantano, shuffled on x
+  - y: pearson coefficient for fibrosis
+  - shuffle: shuffle the genes but with the same names, 
+  
+  - 
+- test sets on Hoang and Pantano
+
+- then repeat tuning with Hoang and Pantano
+
+- right now, focus on predicting clinical scores
+later, after the model is established, see how well it will predict inferred scores
+
+- for the data splits, try to match the distribution of the data points (NAS/ fibrosis scores)
+
+- Let me perform an exercise on identifying the most optimal PLSR models.
+  - First, let's perform a tuning/optimization algorithm.
+  - Let's take our tuning dataset = Govaere.
+    - Create a 10-fold cross validation dataset split where the train and test parts of the 
+
+
+- Now that I have identified the most optimal PLSR models, I can work on PLSR, SVM, ElasticNet, KNN, random forest (how long)
+
+## Updates 10/8
+- Use sk.learn's StratifiedKFold function to split evenly on the NAS/Fibrosis scores as classes, with each iteration having mutually exclusive data points
+
+- scatter plot for each phenotype, print Pearson's Correlation
