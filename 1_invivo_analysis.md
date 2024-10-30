@@ -74,4 +74,9 @@ later, after the model is established, see how well it will predict inferred sco
 ## Updates 10/8
 - Use sk.learn's StratifiedKFold function to split evenly on the NAS/Fibrosis scores as classes, with each iteration having mutually exclusive data points
 
-- scatter plot for each phenotype, print Pearson's Correlation
+
+## Updates 10/29
+- created scatter plots to see how well viper scores predict the NAS and Fibrosis clinical scores
+- a score of 0 means uncertainty, which isn't really well depicted here
+- the Pearson correlation coefficients are not very high, but there is an obvious relationship there still
+
