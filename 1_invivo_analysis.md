@@ -53,9 +53,7 @@ PLSR: try diff. num_lvs = [2, 4, 6, 8, 10] to find the latent variable hyperpara
   - y: pearson coefficient for fibrosis
   - shuffle: shuffle the genes but with the same names, 
   
-  - 
 - test sets on Hoang and Pantano
-
 - then repeat tuning with Hoang and Pantano
 
 - right now, focus on predicting clinical scores
@@ -79,4 +77,20 @@ later, after the model is established, see how well it will predict inferred sco
 - created scatter plots to see how well viper scores predict the NAS and Fibrosis clinical scores
 - a score of 0 means uncertainty, which isn't really well depicted here
 - the Pearson correlation coefficients are not very high, but there is an obvious relationship there still
+
+## Updates 11/5
+- finished with the boxplots for PLSR training! number of LVs: 8 was best for all of the models
+- moving onto KNN and ElasticNet today
+- KNN:
+  - choosing KNN Regression because we have a relationship between the Fib/NAS score, whereas classification would imply that the classes were independent
+  - number of neighbors: 
+    - Pantano: From 10-fold cross validation, 20 neighbors achieves an average Pearson coeff of 0.5833896804381291.
+    - Govaere: From 10-fold cross validation, 5 neighbors achieves an average Pearson coeff of 0.5372950994900263.
+    - Hoang: From 10-fold cross validation on Hoang data, 10 neighbors achieves an average Pearson coeff of 0.6693899907884641.
+- ElasticNet:
+  - choosing ElasticNet to try and combine Lasso and Ridge Regression tactics
+  - ran into warnings when using GridSearchCV, specifically about ConvergenceWarnings
+    - next time, try a max_iter=2000 and also tol=0.01
+    - if it performs fine on the training data, it is okay:)
+    - doesn't necessarily use gradient descnet to calculate, therefore we know that running it in a GPU is not necessarily any better
 
