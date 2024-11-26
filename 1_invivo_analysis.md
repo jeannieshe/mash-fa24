@@ -94,3 +94,25 @@ later, after the model is established, see how well it will predict inferred sco
     - if it performs fine on the training data, it is okay:)
     - doesn't necessarily use gradient descnet to calculate, therefore we know that running it in a GPU is not necessarily any better
 
+## Updates 11/12
+- Finished ElasticNet training
+- alpha and L1 ratio have different meanings
+- cannot necessarily just simplify it to mean Lasso vs. Ridge regression
+- Doing LinearSVR: it's really bad. 
+  - Needed to use MultiOutputRegressor because of the two variables to predict
+  - Mean Pearson correlation (Fibrosis): 0.3809897076428476
+  - Mean Pearson correlation (NAS): 0.5101705543138401
+
+## Updates 11/19
+- Reconstruct the datatable and save as csv
+- Don't trust my saved models because validation is higher than training?
+- Only run RBF SVM because linear and poly take too long
+- Figure out why the validation dataset is so different???
+
+## Updates 11/26
+- Finally reconstructed all of the Pearson correlation coefficients for the PLSR tuning
+  - Pantano: LV 9
+  - Govaere: LV 8
+  - Hoang: LV 10
+- Reconstructed coefficients for KNN and ElasticNet as well
+- Working on RBF SVM
