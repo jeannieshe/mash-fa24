@@ -116,3 +116,15 @@ later, after the model is established, see how well it will predict inferred sco
   - Hoang: LV 10
 - Reconstructed coefficients for KNN and ElasticNet as well
 - Working on RBF SVM
+- Actually discovered what was happening with my saved models (incorrect data splitting
+when using skf from sklearn)
+- Satisfyingly debugged my own code! Found a few errors, namely labeling NAS scores as
+Fib and vice versa
+- Reconstructed the csv dataset for all of these coefficients!
+- Choosing Govaere dataset from PLSR models because it has the most diverse dataset and
+rather good performance
+
+## Updates 12/3
+- Created the ideal model using PLSR, Govaere, all training data
+- Finished predicting NAS/Fib scores on in vitro data and also calculated VIPER scores
+  - Plotted -> interesting positive correlation amongst NAS and Fib scores
