@@ -3,7 +3,10 @@
 ### About
 A collection of notes and scripts from my fall 24 UROP in Lauffenburger Lab (MIT Department of Biological Engineering) on Metabolic Dysfunction-Associated Steatohepatitis (MASH). Thank you to Nikos Meimetis and Professor Doug Lauffenburger for the continued mentorship and guidance throughout this research.
 
+#### *Please [click here](NEET_Poster_Dec_2024.pdf) for a complete project poster that was presented in December 2024 at the MIT NEET Living Machines poster presentation.*
+
 ### Project
+
 MASH, the advanced stage of metabolic-associated steatosis liver disease, is characterized by severe accumulation of fat in the liver. Approximately 25% of adults in the US have metabolic dysfunction-associated steatotic liver disease (MASLD); of those, 20% have MASH [(Cleveland Clinic)](https://my.clevelandclinic.org/health/diseases/22988-nonalcoholic-steatohepatitis). However, we currently observe a lack of clinical therapies directly targeting liver inflammation [(Alexopoulos et al)](https://pubmed.ncbi.nlm.nih.gov/38030391/). Patients often receive anti-obesity or anti-diabetes treatments instead.
 
 A patient's disease severity is determined by a doctor's histological scoring of a liver biopsy, which produces two clinical scores:
@@ -14,7 +17,6 @@ The effort towards developing accurate *in vitro* liver models is crucial for be
 
 **My goal for this semester was to create a machine learning model to histologically score transcriptomic data with fibrosis stage score and NAS, bringing clinical meaning to in vitro liver model conditions.**
 
-*Please [click here](NEET_Poster_Dec_2024.pdf) for a complete project poster that was presented in December 2024 at the MIT NEET Living Machines poster presentation.*
 
 ### Skills gained
 Through the 14-week semester, I challenged myself to train and save machine learning models from scratch. 
