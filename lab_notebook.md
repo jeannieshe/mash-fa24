@@ -1,7 +1,7 @@
-# Part 1: Running GSEA on in-vivo datasets to establish a baseline prediction.
-Corresponding script: invivo_prediction.R
+## Digital Lab Notes
+### &copy; 2025 Jeannie She. All Rights Reserved.
 
-## GSEA
+## 9/3
 - GSEA, specifically the fgsea R package, requires passing in a list of ranked genes and pathways.
   - The datasets Nikos gave me were normalized count matrices, so they could not be passed into **DESeq2** (which expects raw count matrices) in order to calculate the logFC, stat, pvalue, etc statistics.
   - The **limma** package is an alternative for differential expression analysis which can handle log-transformed or normalized data. However, it was designed for data with continuous, normally distributed values (like log-transformed microarray intensities).
@@ -19,14 +19,14 @@ Corresponding script: invivo_prediction.R
 - extract the t-statistic.
 - fgsea using pathways (geneset_list containing gNAS and gFib), stat (t-statistic), nperm = 1000.
 
-## Questions
+## 9/3 Questions
 - Which designs to choose from? NAS + fibrosis, NAS, fibrosis
 - Is the data log-transformed normalized?
 - Should I only use the t-statistic for fgsea analysis? Why or why not select any other stat?
 - How many permutations should I run for gsea? What does nperm mean for gsea?
 - What is the value under each coefficient when I run topTable(fit)?
 
-## Changes to code 9/11
+## Updates 9/11
 - The data are normalized (CPM, log2 transformed, and then centered)
 - Nikos: you can use a code like above! where measurements is basically you X. And this will give you 2 matrices. One with rows the genesets and columns the sample that has Normalized Enrichment Scores (NES) and one with the same dimesnsions and p-values (for the later we dont care at this point so you can avoid using it if you want and for that reason you may use just 100 permutations)
 
@@ -36,7 +36,9 @@ Corresponding script: invivo_prediction.R
 
 - If I want to use it in python, I will need to create a conda environment and install it there.
   - conda create -n myenv; conda activate myenv; conda install decoupler-py -c conda-forge
-  
+
+# Part 2: Running VIPER on in-vivo datasets to establish a baseline prediction.
+
 ## Updates 10/1
 - Instead of using GSEA, I will now be using VIPER. VIPER uses the regulon of the datasets and the given gene sets in order to predict a score for each patient.
 - VIPER gives a direction of regulation in addition to the magnitude of regulation, and the score is in the range (-2, 2).
@@ -66,12 +68,10 @@ later, after the model is established, see how well it will predict inferred sco
   - Let's take our tuning dataset = Govaere.
     - Create a 10-fold cross validation dataset split where the train and test parts of the 
 
-
 - Now that I have identified the most optimal PLSR models, I can work on PLSR, SVM, ElasticNet, KNN, random forest (how long)
 
 ## Updates 10/8
 - Use sk.learn's StratifiedKFold function to split evenly on the NAS/Fibrosis scores as classes, with each iteration having mutually exclusive data points
-
 
 ## Updates 10/29
 - created scatter plots to see how well viper scores predict the NAS and Fibrosis clinical scores
